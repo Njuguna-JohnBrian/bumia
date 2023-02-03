@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-const connectDatabase = async () => {
+const connectDatabase = async (): Promise<void> => {
   mongoose.set("strictQuery", false);
 
   await mongoose.connect(process.env.DB_LOCAL_URI).then((connection) => {
