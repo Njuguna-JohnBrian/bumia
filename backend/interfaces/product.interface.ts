@@ -6,6 +6,7 @@ export interface IProduct {
   images: Array<IImages>;
   category: object;
   seller: string;
+  stock: number;
   numOfReviews: number;
   reviews: Array<IReviews>;
   createdAt: Date;
