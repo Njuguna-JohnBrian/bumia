@@ -1,22 +1,26 @@
 import * as mongoose from "mongoose";
-import { EProducts, IProduct } from "../interfaces/product.interface";
+import {
+  EProducts,
+  IProduct,
+  ProductModelErrors,
+} from "../interfaces/product.interface";
 
 const productSchema = new mongoose.Schema<IProduct>({
   name: {
     type: String,
-    required: [true, "Please enter the product name"],
+    required: [true, ProductModelErrors.nameRequired],
     trim: true,
-    maxlength: [100, "Product name cannot exceed 100 characters"],
+    maxlength: [100, ProductModelErrors.nameMaxlength],
   },
   price: {
     type: Number,
-    required: [true, "Please enter product price"],
-    maxlength: [5, "Product price cannot exceed 5 characters"],
+    required: [true, ProductModelErrors.priceRequired],
+    maxlength: [5, ProductModelErrors.priceMaxlength],
     default: 0.0,
   },
   description: {
     type: String,
-    required: [true, "Please enter product description"],
+    required: [true, ProductModelErrors.descriptionRequired],
   },
   ratings: {
     type: Number,
@@ -37,20 +41,20 @@ const productSchema = new mongoose.Schema<IProduct>({
 
   category: {
     type: String,
-    required: [true, "Please select the category for this product"],
+    required: [true, ProductModelErrors.categoryRequired],
     enum: {
       values: Object.values(EProducts),
-      message: "Please select the category for this product",
+      message: ProductModelErrors.categoryRequired,
     },
   },
   seller: {
     type: String,
-    required: [true, "Please enter product seller"],
+    required: [true, ProductModelErrors.sellerRequired],
   },
   stock: {
     type: Number,
-    required: [true, "Please enter product stock"],
-    maxlength: [5, "Product stock cannot exceed 5 characters"],
+    required: [true, ProductModelErrors.stockRequired],
+    maxlength: [5, ProductModelErrors.stockMaxlength],
     default: 0.0,
   },
   numOfReviews: {
