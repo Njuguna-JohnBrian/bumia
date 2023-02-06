@@ -24,16 +24,16 @@ interface IReviews {
 }
 
 export enum EProducts {
-  "Electronics",
-  "Cameras",
-  "Laptop",
-  "Accessories",
-  "Headphones",
-  "Foood",
-  "Books",
-  "Clothes/Shoes",
-  "Beauty/Health",
-  "Sports",
-  "Outdoor",
-  "Home",
+  one = "Electronics",
+  two = "Cameras",
+  three = "Laptop",
+  four = "Accessories",
+  five = "Headphones",
+  six = "Foood",
+  seven = "Books",
+  eight = "Clothes/Shoes",
+  nine = "Beauty/Health",
+  ten = "Sports",
+  eleven = "Outdoor",
+  twelve = "Home",
 }
