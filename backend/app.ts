@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 
-import { health } from "./routes/health";
+import { health } from "./routes/health.router";
 
 const app: Express = express();
 
