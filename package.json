@@ -9,6 +9,7 @@
     "dev": "concurrently \"npx tsc --watch\" \"NODE_ENV=DEVELOPMENT nodemon -q backend/dist/server.js\"",
     "prod": "concurrently \"npx tsc --watch\" \"NODE_ENV=PRODUCTION nodemon -q backend/dist/server.js\"",
     "lint": "eslint . --ext .ts",
+    "seeder": "concurrently \"npx tsc\" \"node backend/dist/utils/seeder.utils.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
