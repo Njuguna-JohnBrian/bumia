@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
+import * as mongoose from "mongoose";
 import { EProducts, IProduct } from "../interfaces/product.interface";
 
-const productSchema = new Schema<IProduct>({
+const productSchema = new mongoose.Schema<IProduct>({
   name: {
     type: String,
     required: [true, "Please enter the product name"],
@@ -39,7 +39,7 @@ const productSchema = new Schema<IProduct>({
     type: String,
     required: [true, "Please select the category for this product"],
     enum: {
-      values: [Object.values(EProducts)],
+      values: Object.values(EProducts),
       message: "Please select the category for this product",
     },
   },
@@ -79,7 +79,7 @@ const productSchema = new Schema<IProduct>({
   },
 });
 
-const Product = model<IProduct>("Product", productSchema);
+const Product = mongoose.model<IProduct>("Product", productSchema);
 
 Product.createIndexes();
 
