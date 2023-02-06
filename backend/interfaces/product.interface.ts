@@ -37,3 +37,15 @@ export enum EProducts {
   eleven = "Outdoor",
   twelve = "Home",
 }
+
+export enum ProductModelErrors {
+  nameRequired = "Please enter the product name",
+  nameMaxlength = "Product name cannot exceed 100 characters",
+  priceRequired = "Please enter product price",
+  priceMaxlength = "Product price cannot exceed 5 characters",
+  descriptionRequired = "Please enter product description",
+  categoryRequired = "Please select the category for this product",
+  sellerRequired = "Please enter product seller",
+  stockRequired = "Please enter product stock",
+  stockMaxlength = "Product stock cannot exceed 5 characters",
+}
