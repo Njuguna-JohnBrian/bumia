@@ -37,10 +37,13 @@ export class ProductController {
    * @param {*} res response body with the found products
    *
    */
-  static async getAllProducts(req: Request, res: Response) {
+  static async getAllProducts(
+    req: Request,
+    res: Response
+  ): Promise<Response<object, Record<string, object>>> {
     const products = await Product.find();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       products,
     });
