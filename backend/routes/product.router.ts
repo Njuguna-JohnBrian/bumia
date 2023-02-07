@@ -28,4 +28,11 @@ product.post(`${productBaseUrl}/new`, (req, res) => {
   ProductController.createProduct(req, res);
 });
 
+/**
+ * Update product
+ */
+product.put(`${productBaseUrl}/:id`, (req, res) => {
+  ProductController.updateProduct(req, res);
+});
+
 export { product };
