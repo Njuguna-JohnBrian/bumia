@@ -101,4 +101,30 @@ export class ProductController {
       product,
     });
   }
+
+  /**Delete Product
+   *
+   * /product/:id
+   *
+   * @param {*} req request body with product to delete
+   * @param {*} res response body with delete message
+   *
+   */
+  static async deleteProduct(req: Request, res: Response) {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: `Product by id: ${req.params.id} not found`,
+      });
+    }
+
+    await product.remove();
+
+    return res.status(200).json({
+      success: true,
+      message: `Product by id: ${req.params.id} deleted`,
+    });
+  }
 }
