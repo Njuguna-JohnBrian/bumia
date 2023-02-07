@@ -35,4 +35,11 @@ product.put(`${productBaseUrl}/:id`, (req, res) => {
   ProductController.updateProduct(req, res);
 });
 
+/**
+ * Delete product
+ */
+product.delete(`${productBaseUrl}/:id`, (req, res) => {
+  ProductController.deleteProduct(req, res);
+});
+
 export { product };
