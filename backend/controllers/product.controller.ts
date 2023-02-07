@@ -28,4 +28,21 @@ export class ProductController {
       product,
     });
   }
+
+  /**Get All Products
+   *
+   * /products
+   *
+   * @param {*} req request body
+   * @param {*} res response body with the found products
+   *
+   */
+  static async getAllProducts(req: Request, res: Response) {
+    const products = await Product.find();
+
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  }
 }
