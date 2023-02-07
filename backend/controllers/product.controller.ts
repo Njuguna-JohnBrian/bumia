@@ -37,12 +37,35 @@ export class ProductController {
    * @param {*} res response body with the found products
    *
    */
-  static async getAllProducts(req: Request, res: Response) {
+  static async getAllProducts(
+    req: Request,
+    res: Response
+  ): Promise<Response<object, Record<string, object>>> {
     const products = await Product.find();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       products,
+    });
+  }
+
+  /**Create Product
+   *
+   * /product/new
+   *
+   * @param {*} req request body with product details
+   * @param {*} res response body with the new product
+   *
+   */
+  static async createProduct(
+    req: Request,
+    res: Response
+  ): Promise<Response<object, Record<string, object>>> {
+    const product = await Product.create(req.body);
+
+    return res.status(200).json({
+      success: true,
+      product,
     });
   }
 }
