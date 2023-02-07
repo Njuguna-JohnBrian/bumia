@@ -21,4 +21,11 @@ product.get(productsBaseUrl, (req, res) => {
   ProductController.getAllProducts(req, res);
 });
 
+/**
+ * Create new product
+ */
+product.post(`${productBaseUrl}/new`, (req, res) => {
+  ProductController.createProduct(req, res);
+});
+
 export { product };
