@@ -48,4 +48,24 @@ export class ProductController {
       products,
     });
   }
+
+  /**Create Product
+   *
+   * /product/new
+   *
+   * @param {*} req request body with product details
+   * @param {*} res response body with the new product
+   *
+   */
+  static async createProduct(
+    req: Request,
+    res: Response
+  ): Promise<Response<object, Record<string, object>>> {
+    const product = await Product.create(req.body);
+
+    return res.status(200).json({
+      success: true,
+      product,
+    });
+  }
 }
