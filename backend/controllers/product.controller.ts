@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { Product } from "../models/product.model";
-import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middlewares";
+import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 
 /**Get Single Product
  *
