@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { Product } from "../models/product.model";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
-import { ErrorHandler } from "../utils/errorHandler";
+import { ErrorHandler } from "../utils/errorHandler.utils.";
 
 /**Get Single Product
  *
@@ -16,6 +16,8 @@ const getSingleProduct = CatchAsyncErrors(
     const product = await Product.findById(req.params.id);
 
     if (!product) {
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
       return next(
         new ErrorHandler(`Product by id: ${req.params.id} not found`, 404)
       );

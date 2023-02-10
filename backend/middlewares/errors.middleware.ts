@@ -1,11 +1,17 @@
-import { Response } from "express";
-import { ErrorHandler } from "../utils/errorHandler";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NextFunction, Response } from "express";
+import { ErrorHandler } from "../utils/errorHandler.utils.";
 
-const errorMiddleware = (err, res: Response) => {
+const errorMiddleware = (
+  err: any,
+  req: unknown,
+  res: Response,
+  next: NextFunction
+) => {
   err.statusCode = err.stausCode || 500;
 
   if (process.env.NODE_ENV === "DEVELOPMENT") {
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       success: false,
       error: err,
       errMessage: err.message,
@@ -32,11 +38,11 @@ const errorMiddleware = (err, res: Response) => {
       error = new ErrorHandler(String(message), 400);
     }
 
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       success: false,
       message: error.message || "Internal server error",
     });
   }
 };
 
-export { errorMiddleware };
+export default errorMiddleware;
