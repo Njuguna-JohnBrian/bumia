@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 
-import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middlewares";
+import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 
 /**Check Bumia Health
  *
