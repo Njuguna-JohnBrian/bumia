@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Response } from "express";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
-import { IError } from "../interfaces/error.interface";
+import { BumiaDefinitions, IError } from "../interfaces/error.interface";
 
 const errorMiddleware = (
   err: IError,
@@ -11,7 +11,7 @@ const errorMiddleware = (
 ) => {
   err.statusCode = err.statusCode || 500;
 
-  if (process.env.NODE_ENV === "DEVELOPMENT") {
+  if (process.env.NODE_ENV === BumiaDefinitions.DEVELOPMENT) {
     return res.status(err.statusCode).json({
       success: false,
       error: err,
@@ -20,18 +20,18 @@ const errorMiddleware = (
     });
   }
 
-  if (process.env.NODE_ENV === "PRODUCTION") {
+  if (process.env.NODE_ENV === BumiaDefinitions.PRODUCTION) {
     let error = { ...err };
 
     error.message = err.message;
 
-    if (err.name === "CastError") {
-      const message = `Resource not found. Invalid ${err.path}`;
+    if (err.name === BumiaDefinitions.CAST_ERROR) {
+      const message = `${BumiaDefinitions.RESOURCE_NOT_FOUND} ${err.path}`;
 
       error = new ErrorHandler(message, 400);
     }
 
-    if (err.name === "ValidationError") {
+    if (err.name === BumiaDefinitions.VALIDATION_ERROR) {
       const message = Object.values(err.errors).map((value) => value.message);
 
       error = new ErrorHandler(String(message), 400);
@@ -39,7 +39,7 @@ const errorMiddleware = (
 
     return res.status(err.statusCode).json({
       success: false,
-      message: error.message || "Internal server error",
+      message: error.message || BumiaDefinitions.INTERNAL_ERROR,
     });
   }
 };

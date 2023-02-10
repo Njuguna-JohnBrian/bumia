@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { Product } from "../models/product.model";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
+import { ControllerMessages } from "../interfaces/error.interface";
 
 /**Get Single Product
  *
@@ -17,7 +18,10 @@ const getSingleProduct = CatchAsyncErrors(
 
     if (!product) {
       return next(
-        new ErrorHandler(`Product by id: ${req.params.id} not found`, 404)
+        new ErrorHandler(
+          `${ControllerMessages.PRODUCT_NOT_FOUND} ${req.params.id} not found`,
+          404
+        )
       );
     }
 
@@ -59,7 +63,7 @@ const createProduct = CatchAsyncErrors(
 
     if (!product) {
       return next(
-        new ErrorHandler("Failed to create product. Please retry", 404)
+        new ErrorHandler(`${ControllerMessages.PRODUCT_CREATE_FAIL}`, 404)
       );
     }
 
@@ -84,7 +88,10 @@ const updateProduct = CatchAsyncErrors(
 
     if (!product) {
       return next(
-        new ErrorHandler(`Product by id: ${req.params.id} not found`, 404)
+        new ErrorHandler(
+          `${ControllerMessages.PRODUCT_NOT_FOUND} ${req.params.id} not found`,
+          404
+        )
       );
     }
 
@@ -115,7 +122,10 @@ const deleteProduct = CatchAsyncErrors(
 
     if (!product) {
       return next(
-        new ErrorHandler(`Product by id: ${req.params.id} not found`, 404)
+        new ErrorHandler(
+          `${ControllerMessages.PRODUCT_NOT_FOUND} ${req.params.id} not found`,
+          404
+        )
       );
     }
 
@@ -123,7 +133,7 @@ const deleteProduct = CatchAsyncErrors(
 
     return res.status(200).json({
       success: true,
-      message: `Product by id: ${req.params.id} deleted`,
+      message: `${ControllerMessages.PRODUCT_NOT_FOUND} ${req.params.id} deleted`,
     });
   }
 );

@@ -6,10 +6,11 @@ dotenv.config({
 
 import { app } from "./app";
 import { connectDatabase } from "./config/database";
+import { BumiaDefinitions } from "./interfaces/error.interface";
 
-process.on("uncaughtException", (err: Error) => {
+process.on(`${BumiaDefinitions.UNCAUGHT_EXCEPTION}`, (err: Error) => {
   console.log(`Error: ${err.message}`);
-  console.log("Shutting down due to Uncaught Exception");
+  console.log(`${BumiaDefinitions.SHUTTING_EXCEPTION}`);
   process.exit(1);
 });
 
@@ -21,8 +22,8 @@ app.listen(process.env.PORT, () => {
   );
 });
 
-process.on("unhandledRejection", (err: Error) => {
+process.on(`${BumiaDefinitions.UNHANDLED_PROMISE}`, (err: Error) => {
   console.log(`Error: ${err.message}`);
-  console.log("Shutting down due to Unhandled Promise Rejections");
+  console.log(`${BumiaDefinitions.SHUTTING_PROMISE}`);
   process.exit(1);
 });
