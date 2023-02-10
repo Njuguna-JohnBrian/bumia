@@ -16,8 +16,6 @@ const getSingleProduct = CatchAsyncErrors(
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
       return next(
         new ErrorHandler(`Product by id: ${req.params.id} not found`, 404)
       );
