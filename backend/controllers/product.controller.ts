@@ -14,19 +14,26 @@ export class ProductController {
     req: Request,
     res: Response
   ): Promise<Response<object, Record<string, object>>> {
-    const product = await Product.findById(req.params.id);
+    try {
+      const product = await Product.findById(req.params.id);
 
-    if (!product) {
-      return res.status(404).json({
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Product by id: ${req.params.id} not found`,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        product,
+      });
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        message: `Product by id: ${req.params.id} not found`,
+        message: "Internal server error",
       });
     }
-
-    return res.status(200).json({
-      success: true,
-      product,
-    });
   }
 
   /**Get All Products
@@ -41,12 +48,19 @@ export class ProductController {
     req: Request,
     res: Response
   ): Promise<Response<object, Record<string, object>>> {
-    const products = await Product.find();
+    try {
+      const products = await Product.find();
 
-    return res.status(200).json({
-      success: true,
-      products,
-    });
+      return res.status(200).json({
+        success: true,
+        products,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
   }
 
   /**Create Product
@@ -61,12 +75,19 @@ export class ProductController {
     req: Request,
     res: Response
   ): Promise<Response<object, Record<string, object>>> {
-    const product = await Product.create(req.body);
+    try {
+      const product = await Product.create(req.body);
 
-    return res.status(200).json({
-      success: true,
-      product,
-    });
+      return res.status(200).json({
+        success: true,
+        product,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
   }
 
   /**Update Product
@@ -81,25 +102,32 @@ export class ProductController {
     req: Request,
     res: Response
   ): Promise<Response<object, Record<string, object>>> {
-    let product = await Product.findById(req.params.id);
+    try {
+      let product = await Product.findById(req.params.id);
 
-    if (!product) {
-      return res.status(404).json({
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Product by id: ${req.params.id} not found`,
+        });
+      }
+
+      product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      });
+
+      return res.status(200).json({
+        success: true,
+        product,
+      });
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        message: `Product by id: ${req.params.id} not found`,
+        message: "Internal server error",
       });
     }
-
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    });
-
-    return res.status(200).json({
-      success: true,
-      product,
-    });
   }
 
   /**Delete Product
@@ -111,20 +139,27 @@ export class ProductController {
    *
    */
   static async deleteProduct(req: Request, res: Response) {
-    const product = await Product.findById(req.params.id);
+    try {
+      const product = await Product.findById(req.params.id);
 
-    if (!product) {
-      return res.status(404).json({
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Product by id: ${req.params.id} not found`,
+        });
+      }
+
+      await product.remove();
+
+      return res.status(200).json({
+        success: true,
+        message: `Product by id: ${req.params.id} deleted`,
+      });
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        message: `Product by id: ${req.params.id} not found`,
+        message: "Internal server error",
       });
     }
-
-    await product.remove();
-
-    return res.status(200).json({
-      success: true,
-      message: `Product by id: ${req.params.id} deleted`,
-    });
   }
 }
