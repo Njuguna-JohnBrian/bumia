@@ -10,9 +10,16 @@ export class HealthController {
    * @param {*} next next controller to take over execution
    */
   static async checkHealth(req: Request, res: Response) {
-    return res.status(200).json({
-      success: true,
-      message: "System is operational and healthy",
-    });
+    try {
+      return res.status(200).json({
+        success: true,
+        message: "System is operational and healthy",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
   }
 }
