@@ -1,5 +1,6 @@
 import { Response, Request } from "express";
 import { Product } from "../models/product.model";
+import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middlewares";
 
 /**Get Single Product
  *
@@ -9,28 +10,30 @@ import { Product } from "../models/product.model";
  * @param {*} res response body with the found product
  *
  */
-const getSingleProduct = async (req: Request, res: Response) => {
-  try {
-    const product = await Product.findById(req.params.id);
+const getSingleProduct = CatchAsyncErrors(
+  async (req: Request, res: Response) => {
+    try {
+      const product = await Product.findById(req.params.id);
 
-    if (!product) {
-      return res.status(404).json({
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Product by id: ${req.params.id} not found`,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        product,
+      });
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        message: `Product by id: ${req.params.id} not found`,
+        message: "Internal server error",
       });
     }
-
-    return res.status(200).json({
-      success: true,
-      product,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
   }
-};
+);
 
 /**Get All Products
  *
@@ -40,7 +43,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
  * @param {*} res response body with the found products
  *
  */
-const getAllProducts = async (req: Request, res: Response) => {
+const getAllProducts = CatchAsyncErrors(async (req: Request, res: Response) => {
   try {
     const products = await Product.find();
 
@@ -54,7 +57,7 @@ const getAllProducts = async (req: Request, res: Response) => {
       message: "Internal server error",
     });
   }
-};
+});
 
 /**Create Product
  *
@@ -64,7 +67,7 @@ const getAllProducts = async (req: Request, res: Response) => {
  * @param {*} res response body with the new product
  *
  */
-const createProduct = async (req: Request, res: Response) => {
+const createProduct = CatchAsyncErrors(async (req: Request, res: Response) => {
   try {
     const product = await Product.create(req.body);
 
@@ -78,7 +81,7 @@ const createProduct = async (req: Request, res: Response) => {
       message: "Internal server error",
     });
   }
-};
+});
 
 /**Update Product
  *
@@ -88,7 +91,7 @@ const createProduct = async (req: Request, res: Response) => {
  * @param {*} res response body with the new product
  *
  */
-const updateProduct = async (req: Request, res: Response) => {
+const updateProduct = CatchAsyncErrors(async (req: Request, res: Response) => {
   try {
     let product = await Product.findById(req.params.id);
 
@@ -115,7 +118,7 @@ const updateProduct = async (req: Request, res: Response) => {
       message: "Internal server error",
     });
   }
-};
+});
 
 /**Delete Product
  *
@@ -125,7 +128,7 @@ const updateProduct = async (req: Request, res: Response) => {
  * @param {*} res response body with delete message
  *
  */
-const deleteProduct = async (req: Request, res: Response) => {
+const deleteProduct = CatchAsyncErrors(async (req: Request, res: Response) => {
   try {
     const product = await Product.findById(req.params.id);
 
@@ -148,7 +151,7 @@ const deleteProduct = async (req: Request, res: Response) => {
       message: "Internal server error",
     });
   }
-};
+});
 
 export {
   getSingleProduct,
