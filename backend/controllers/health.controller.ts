@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
-import { ErrorHandler } from "../utils/errorHandler";
+import { ErrorHandler } from "../utils/errorHandler.utils.";
 
 /**Check Bumia Health
  *

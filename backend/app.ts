@@ -2,7 +2,7 @@ import express, { Express } from "express";
 
 import { health } from "./routes/health.router";
 import { product } from "./routes/product.router";
-import { errorMiddleware } from "./middlewares/errors.middleware";
+import errorMiddleware from "./middlewares/errors.middleware";
 
 const app: Express = express();
 
