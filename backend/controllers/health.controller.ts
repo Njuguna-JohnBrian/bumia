@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
+import { ErrorHandler } from "../utils/errorHandler";
 
 /**Check Bumia Health
  *
@@ -12,6 +13,9 @@ import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
  */
 const checkHealth = CatchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
+    if (res.errored) {
+      return next(new ErrorHandler("Internal server error", 500));
+    }
     return res.status(200).json({
       success: true,
       message: "System is operational and healthy",
