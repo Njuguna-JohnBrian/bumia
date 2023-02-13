@@ -42,7 +42,9 @@ const getSingleProduct = CatchAsyncErrors(
  *
  */
 const getAllProducts = CatchAsyncErrors(async (req: Request, res: Response) => {
-  const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
+  const apiFeatures = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .pagination(4);
 
   const products = await apiFeatures.query;
 
