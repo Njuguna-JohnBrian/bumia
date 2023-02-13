@@ -2,14 +2,14 @@
   "name": "bumia",
   "version": "1.0.0",
   "description": "Bumia Shop",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "build": "npx tsc",
-    "start": "node backend/dist/server.js",
-    "dev": "concurrently \"npx tsc --watch\" \"NODE_ENV=DEVELOPMENT nodemon -q backend/dist/server.js\"",
-    "prod": "concurrently \"npx tsc --watch\" \"NODE_ENV=PRODUCTION nodemon -q backend/dist/server.js\"",
+    "start": "nodemon backend/server.ts",
+    "dev": "nodemon backend/server.ts",
+    "prod": "NODE_ENV=PRODUCTION nodemon  backend/server.ts",
     "lint": "eslint . --ext .ts",
-    "seeder": "concurrently \"npx tsc\" \"node backend/dist/utils/seeder.utils.js\"",
+    "seeder": "node backend/utils/seeder.utils.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -42,6 +42,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
-    "mongoose": "^6.9.0"
+    "mongoose": "^6.9.0",
+    "ts-node-dev": "^2.0.0"
   }
 }
