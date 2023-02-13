@@ -3,6 +3,7 @@ import { Product } from "../models/product.model";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
 import { ControllerMessages } from "../interfaces/error.interface";
+import ApiFeatures from "../utils/apiFeatures.utils";
 
 /**Get Single Product
  *
@@ -34,17 +35,20 @@ const getSingleProduct = CatchAsyncErrors(
 
 /**Get All Products
  *
- * /products
+ * /products?keyword=apple
  *
- * @param {*} req request body
+ * @param {*} req request body with query keyword or empty keyword query string
  * @param {*} res response body with the found products
  *
  */
 const getAllProducts = CatchAsyncErrors(async (req: Request, res: Response) => {
-  const products = await Product.find();
+  const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
+
+  const products = await apiFeatures.query;
 
   return res.status(200).json({
     success: true,
+    count: products.length,
     products,
   });
 });
