@@ -17,6 +17,7 @@ process.on(`${BumiaDefinitions.UNCAUGHT_EXCEPTION}`, (err: Error) => {
 connectDatabase();
 
 app.listen(process.env.PORT, () => {
+  console.clear();
   console.log(
     `Server running on PORT: ${process.env.PORT} in ${process.env.NODE_ENV}`
   );
