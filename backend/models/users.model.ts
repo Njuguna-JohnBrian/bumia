@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       required: [true, "Please enter your email"],
       unique: true,
-      validate: [validator.default.isEmail, "Please provide a "],
+      validate: [validator.default.isEmail, "Please provide a valid email"],
     },
     avatar: {
       public_id: {
