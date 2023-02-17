@@ -12,3 +12,11 @@ interface IAvatar {
   public_id: string;
   url: string;
 }
+
+export interface AuthInput {
+  name: string;
+  email: string;
+  password: string;
+  avatar: IAvatar;
+  role?: string;
+}
