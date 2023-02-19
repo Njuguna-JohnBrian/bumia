@@ -10,12 +10,13 @@ interface IEmailOptions {
 const sendEmail = async (options: IEmailOptions) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: Number(process.env.PORT),
+    port: Number(process.env.SMTP_PORT),
     auth: {
-      user: process.env.SMTP_EMAIL,
+      user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD,
     },
   } as SMTPTransport.Options);
+
   const message = {
     from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`,
     to: options.email,
@@ -23,7 +24,9 @@ const sendEmail = async (options: IEmailOptions) => {
     text: options.message,
   };
 
-  return await transporter.sendMail(message);
+  const messages = await transporter.sendMail(message);
+
+  console.log(messages);
 };
 
 export { sendEmail };
