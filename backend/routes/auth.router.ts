@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import {
   getUserProfile,
   loginUser,
+  logout,
   registerUser,
 } from "../controllers/auth.controller";
 
@@ -29,11 +30,23 @@ auth.post("/login", (req: Request, res: Response, next: NextFunction) => {
  * Get my profile
  */
 
-auth.post(
+auth.get(
   "/me",
   isAuthenticated,
   (req: Request, res: Response, next: NextFunction) => {
     return getUserProfile(req, res, next);
+  }
+);
+
+/**
+ * logout user
+ */
+
+auth.get(
+  "/logout",
+  isAuthenticated,
+  (req: Request, res: Response, next: NextFunction) => {
+    return logout(req, res, next);
   }
 );
 
