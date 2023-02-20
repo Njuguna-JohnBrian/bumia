@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Response } from "express";
 import { MongooseError } from "mongoose";
 
 export class IError extends Error {
@@ -23,4 +25,9 @@ export enum ControllerMessages {
   HEALTH_MESSAGE = "System is operational and healthy",
   PRODUCT_NOT_FOUND = "Product by id:",
   PRODUCT_CREATE_FAIL = "Failed to create product. Please retry",
+}
+
+export class IRequest extends Response {
+  user: any;
+  cookies: any;
 }
