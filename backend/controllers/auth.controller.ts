@@ -4,6 +4,7 @@ import { ErrorHandler } from "../utils/errorHandler.utils.";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { NextFunction } from "express";
 import { AuthInput } from "../interfaces/user.interface";
+import { sendJwtToken } from "../utils/sendJwtToke.utils";
 
 /**User Registration
  *
@@ -27,10 +28,7 @@ const registerUser = CatchAsyncErrors(
       return next(new ErrorHandler("Registration failed", 404));
     }
 
-    return res.status(200).json({
-      success: true,
-      user,
-    });
+    return sendJwtToken(user, 200, res);
   }
 );
 
