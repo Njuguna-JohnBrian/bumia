@@ -39,7 +39,7 @@ auth.get(
 );
 
 /**
- * logout user
+ * Logout user
  */
 
 auth.get(
