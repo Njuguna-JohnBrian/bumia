@@ -75,6 +75,29 @@ const loginUser = CatchAsyncErrors(
   }
 );
 
+/**Logout user
+ *
+ * /logout
+ * @param {*} req request body
+ * @param {*} res response body
+ * @param {*} next next controller to take over execution
+ */
+
+const logout = CatchAsyncErrors(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+  }
+);
+
 /**Get user profile
  *
  * /me
@@ -85,6 +108,8 @@ const loginUser = CatchAsyncErrors(
 
 const getUserProfile = CatchAsyncErrors(
   async (req: IRequest, res: Response, next: NextFunction) => {
+    // console.log(req);
+
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -98,4 +123,4 @@ const getUserProfile = CatchAsyncErrors(
   }
 );
 
-export { registerUser, loginUser, getUserProfile };
+export { registerUser, loginUser, getUserProfile, logout };
