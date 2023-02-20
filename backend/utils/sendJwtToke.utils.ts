@@ -5,8 +5,6 @@ import { IUser } from "../interfaces/user.interface";
 const sendJwtToken = (user: IUser | any, statusCode: number, res: Response) => {
   const token = user.getJwtToken();
 
-  console.log(token);
-
   /**
    * cookie options
    */
