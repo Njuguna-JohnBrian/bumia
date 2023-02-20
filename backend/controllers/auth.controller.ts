@@ -6,6 +6,7 @@ import { NextFunction } from "express";
 import { AuthInput, ILogin } from "../interfaces/user.interface";
 import { sendJwtToken } from "../utils/sendJwtToke.utils";
 import { IRequest } from "../interfaces/error.interface";
+import { sendEmail } from "../utils/sendEmail.utils";
 
 /**User Registration
  *
@@ -108,8 +109,6 @@ const logout = CatchAsyncErrors(
 
 const getUserProfile = CatchAsyncErrors(
   async (req: IRequest, res: Response, next: NextFunction) => {
-    // console.log(req);
-
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -123,4 +122,62 @@ const getUserProfile = CatchAsyncErrors(
   }
 );
 
-export { registerUser, loginUser, getUserProfile, logout };
+/**Forgot password
+ *
+ * /password/forgot
+ * @param {*} req request body with user email
+ * @param {*} res response body with success message
+ * @param {*} next next controller to take over execution
+ */
+const forgotPassword = CatchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = <ILogin>req.body;
+
+    if (!email) {
+      return next(new ErrorHandler("Please provide an email", 400));
+    }
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return next(new ErrorHandler(`User with email ${email} not found`, 404));
+    }
+
+    /**
+     * get and save reset token
+     */
+    const resetToken = user.getResetPasswordToken();
+    await user.save({ validateBeforeSave: false });
+
+    /**
+     * create reset url
+     */
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/bumia/v1/password/reset/${resetToken}`;
+
+    const message = `Your password reset token is as follows:\n\n${resetUrl}\n\nIf you have not requested this email, please ignore it.`;
+
+    try {
+      await sendEmail({
+        email: email,
+        subject: "Bumia Password Recovery",
+        message: message,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: `Email sent to ${email}`,
+      });
+    } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+
+      await user.save({ validateBeforeSave: false });
+
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+export { registerUser, loginUser, getUserProfile, logout, forgotPassword };
