@@ -6,12 +6,20 @@ import { CatchAsyncErrors } from "./catchAsyncErrors.middleware";
 import { User } from "../models/users.model";
 import { IRequest } from "../interfaces/error.interface";
 
+import * as path from "path";
+import * as dotenv from "dotenv";
+dotenv.config({
+  path: path.join(__dirname, "../../backend/config/config.env"),
+});
+
 class ITokenPayload implements jwt.JwtPayload {
   id: string;
 }
 const isAuthenticated = CatchAsyncErrors(
   async (req: IRequest, res: Response, next: NextFunction) => {
-    const { token } = req.cookies;
+    const sample = JSON.parse(JSON.stringify(req.headers));
+
+    const token = sample.cookie?.split("=")[1];
 
     if (!token) {
       return next(new ErrorHandler("Login first to access this resource", 400));
@@ -29,7 +37,7 @@ const isAuthenticated = CatchAsyncErrors(
 );
 
 const authorizeRoles = (...roles: Array<string>) => {
-  return (req: IRequest, res: Response, next: NextFunction) => {
+  return (req: any, res: Response, next: NextFunction) => {
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHandler(
