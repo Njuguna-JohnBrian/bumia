@@ -6,6 +6,9 @@ export interface IUser {
   role: string;
   resetPasswordToken: string;
   resetPasswordExpire: Date;
+  comparePassword(enteredPassword: string): Promise<boolean>;
+  getJwtToken(): string;
+  getResetPasswordToken(): string;
 }
 
 interface IAvatar {
@@ -19,4 +22,9 @@ export interface AuthInput {
   password: string;
   avatar: IAvatar;
   role?: string;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
 }
