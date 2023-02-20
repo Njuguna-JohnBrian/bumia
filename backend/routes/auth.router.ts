@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {
+  forgotPassword,
   getUserProfile,
   loginUser,
   logout,
@@ -47,6 +48,28 @@ auth.get(
   isAuthenticated,
   (req: Request, res: Response, next: NextFunction) => {
     return logout(req, res, next);
+  }
+);
+
+/**
+ * Forgot password
+ */
+
+auth.post(
+  "/password/forgot",
+  (req: Request, res: Response, next: NextFunction) => {
+    return forgotPassword(req, res, next);
+  }
+);
+
+/**
+ * Forgot password
+ */
+
+auth.put(
+  "/password/reset/:token",
+  (req: Request, res: Response, next: NextFunction) => {
+    return forgotPassword(req, res, next);
   }
 );
 
