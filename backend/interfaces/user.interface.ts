@@ -28,3 +28,8 @@ export interface ILogin {
   email: string;
   password: string;
 }
+
+export interface IPasswordReset {
+  password: string;
+  confirmPassword: string;
+}
