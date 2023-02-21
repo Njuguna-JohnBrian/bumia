@@ -64,7 +64,7 @@ auth.post(
 );
 
 /**
- * Forgot password
+ * Reset password
  */
 
 auth.put(
