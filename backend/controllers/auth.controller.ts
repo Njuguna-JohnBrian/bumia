@@ -4,7 +4,11 @@ import { User } from "../models/users.model";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { NextFunction } from "express";
-import { AuthInput, ILogin } from "../interfaces/user.interface";
+import {
+  AuthInput,
+  ILogin,
+  IPasswordReset,
+} from "../interfaces/user.interface";
 import { sendJwtToken } from "../utils/sendJwtToke.utils";
 import { IRequest } from "../interfaces/error.interface";
 import { sendEmail } from "../utils/sendEmail.utils";
@@ -188,10 +192,6 @@ const forgotPassword = CatchAsyncErrors(
  * @param {*} res response body with success message and user details
  * @param {*} next next controller to take over execution
  */
-interface IPasswordReset {
-  password: string;
-  confirmPassword: string;
-}
 const resetPassword = CatchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     const { password, confirmPassword } = <IPasswordReset>req.body;
