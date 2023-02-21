@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import * as crypto from "crypto";
 import { User } from "../models/users.model";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
@@ -180,4 +181,70 @@ const forgotPassword = CatchAsyncErrors(
   }
 );
 
-export { registerUser, loginUser, getUserProfile, logout, forgotPassword };
+/**Reset password
+ *
+ * /password/reset:token
+ * @param {*} req request body with user reset token
+ * @param {*} res response body with success message and user details
+ * @param {*} next next controller to take over execution
+ */
+interface IPasswordReset {
+  password: string;
+  confirmPassword: string;
+}
+const resetPassword = CatchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { password, confirmPassword } = <IPasswordReset>req.body;
+
+    if (!password || !confirmPassword) {
+      return next(
+        new ErrorHandler(
+          "Please provide password and password confirmation",
+          400
+        )
+      );
+    }
+    /**
+     * hash url token
+     */
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(
+        new ErrorHandler("Password reset token is invalid or has expired", 400)
+      );
+    }
+
+    if (password !== confirmPassword) {
+      return next(new ErrorHandler("Passowrd does not match", 400));
+    }
+
+    /**
+     * setup new password
+     */
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return sendJwtToken(user, 200, res);
+  }
+);
+
+export {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  logout,
+  forgotPassword,
+  resetPassword,
+};
