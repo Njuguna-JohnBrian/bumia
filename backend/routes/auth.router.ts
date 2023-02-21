@@ -5,6 +5,7 @@ import {
   loginUser,
   logout,
   registerUser,
+  resetPassword,
 } from "../controllers/auth.controller";
 
 import { isAuthenticated } from "../middlewares/authenticator.middleware";
@@ -69,7 +70,7 @@ auth.post(
 auth.put(
   "/password/reset/:token",
   (req: Request, res: Response, next: NextFunction) => {
-    return forgotPassword(req, res, next);
+    return resetPassword(req, res, next);
   }
 );
 
