@@ -24,9 +24,7 @@ const sendEmail = async (options: IEmailOptions) => {
     text: options.message,
   };
 
-  const messages = await transporter.sendMail(message);
-
-  console.log(messages);
+  await transporter.sendMail(message);
 };
 
 export { sendEmail };

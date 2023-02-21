@@ -159,23 +159,17 @@ const forgotPassword = CatchAsyncErrors(
     const message = `Your password reset token is as follows:\n\n${resetUrl}\n\nIf you have not requested this email, please ignore it.`;
 
     try {
-      console.log("here1");
-
       await sendEmail({
         email: email,
         subject: "Bumia Password Recovery",
         message: message,
       });
 
-      console.log("here2");
-
       return res.status(200).json({
         success: true,
         message: `Email sent to ${email}`,
       });
     } catch (error) {
-      console.log("here3");
-
       user.resetPasswordToken = undefined;
       user.resetPasswordExpire = undefined;
 
