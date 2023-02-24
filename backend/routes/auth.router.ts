@@ -6,6 +6,7 @@ import {
   logout,
   registerUser,
   resetPassword,
+  updateProfile,
 } from "../controllers/auth.controller";
 
 import { isAuthenticated } from "../middlewares/authenticator.middleware";
@@ -37,6 +38,18 @@ auth.get(
   isAuthenticated,
   (req: Request, res: Response, next: NextFunction) => {
     return getUserProfile(req, res, next);
+  }
+);
+
+/**
+ * Update my profile
+ */
+
+auth.patch(
+  "/me/update",
+  isAuthenticated,
+  (req: Request, res: Response, next: NextFunction) => {
+    return updateProfile(req, res, next);
   }
 );
 
