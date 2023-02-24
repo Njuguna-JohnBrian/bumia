@@ -30,4 +30,5 @@ export enum ControllerMessages {
 export class IRequest extends Response {
   user: any;
   cookies: any;
+  body: any;
 }
