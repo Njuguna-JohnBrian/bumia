@@ -3,6 +3,13 @@ import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { User } from "../models/users.model";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
 
+/**Get all users
+ *
+ * /admin/users
+ * @param {*} req request body
+ * @param {*} res response body with all users
+ * @param {*} next next controller to take over execution
+ */
 const getAllUsers = CatchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     const users = await User.find();
@@ -17,3 +24,5 @@ const getAllUsers = CatchAsyncErrors(
     });
   }
 );
+
+export { getAllUsers };
