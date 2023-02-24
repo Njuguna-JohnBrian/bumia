@@ -8,6 +8,7 @@ import {
   AuthInput,
   ILogin,
   IPasswordReset,
+  IUser,
 } from "../interfaces/user.interface";
 import { sendJwtToken } from "../utils/sendJwtToke.utils";
 import { IRequest } from "../interfaces/error.interface";
@@ -118,6 +119,38 @@ const getUserProfile = CatchAsyncErrors(
 
     if (!user) {
       return next(new ErrorHandler("User profile not found", 404));
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  }
+);
+
+/**Update user profile
+ *
+ * /me/update
+ * @param {*} req request body `IUser`
+ * @param {*} res response body with updated user profile
+ * @param {*} next next controller to take over execution
+ */
+const updateProfile = CatchAsyncErrors(
+  async (req: IRequest, res: Response, next: NextFunction) => {
+    const { name, email } = <IUser>req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { name, email },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    if (!user) {
+      return next(new ErrorHandler("Profile failed to update", 404));
     }
 
     return res.status(200).json({
@@ -244,6 +277,7 @@ export {
   registerUser,
   loginUser,
   getUserProfile,
+  updateProfile,
   logout,
   forgotPassword,
   resetPassword,
