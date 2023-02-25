@@ -60,6 +60,17 @@ const getSingleUser = CatchAsyncErrors(
 const updateUser = CatchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, role } = <IUser>req.body;
+    if (!name) {
+      return next(new ErrorHandler("Name is required", 400));
+    }
+
+    if (!email) {
+      return next(new ErrorHandler("Email is required", 400));
+    }
+
+    if (!role) {
+      return next(new ErrorHandler("Role is required", 400));
+    }
 
     const user = await User.findByIdAndUpdate(
       req.params.id,
