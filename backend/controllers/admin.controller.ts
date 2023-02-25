@@ -81,3 +81,5 @@ const updateUser = CatchAsyncErrors(
     });
   }
 );
+
+export { getAllUsers, getSingleUser, updateUser };
