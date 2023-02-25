@@ -49,3 +49,35 @@ const getSingleUser = CatchAsyncErrors(
     });
   }
 );
+
+/**Update user
+ *
+ * /admin/user/update/:id
+ * @param {*} req request body `IUser` `name` `email` and new `role`
+ * @param {*} res response body with updated user details
+ * @param {*} next next controller to take over execution
+ */
+const updateUser = CatchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { name, email, role } = <IUser>req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { name, email, role },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    if (!user) {
+      return next(new ErrorHandler("User details failed to update", 400));
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  }
+);
