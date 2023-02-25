@@ -24,4 +24,16 @@ admin.get(
   }
 );
 
+/**
+ * Get single user
+ */
+
+admin.get(
+  baseUrl + "user/:id",
+  isAuthenticated,
+  authorizeRoles(adminRole),
+  (req: Request, res: Response, next: NextFunction) => {
+    return getSingleUser(req, res, next);
+  }
+);
 export { admin };
