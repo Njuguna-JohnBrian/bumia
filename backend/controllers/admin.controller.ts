@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
 import { User } from "../models/users.model";
 import { ErrorHandler } from "../utils/errorHandler.utils.";
+import { IUser } from "../interfaces/user.interface";
 
 /**Get all users
  *
