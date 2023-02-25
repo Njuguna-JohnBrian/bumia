@@ -109,6 +109,7 @@ const deleteUser = CatchAsyncErrors(
         new ErrorHandler(`User by id ${req.params.id} not found`, 404)
       );
     }
+    await user.remove();
 
     return res.status(204).json({
       success: true,
