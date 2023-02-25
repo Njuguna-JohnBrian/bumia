@@ -1,5 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
-import { getAllUsers } from "../controllers/admin.controller";
+import {
+  getAllUsers,
+  getSingleUser,
+  updateUser,
+} from "../controllers/admin.controller";
 import {
   authorizeRoles,
   isAuthenticated,
@@ -36,4 +40,18 @@ admin.get(
     return getSingleUser(req, res, next);
   }
 );
+
+/**
+ * Update user
+ */
+
+admin.patch(
+  baseUrl + "user/update/:id",
+  isAuthenticated,
+  authorizeRoles(adminRole),
+  (req: Request, res: Response, next: NextFunction) => {
+    return updateUser(req, res, next);
+  }
+);
+
 export { admin };
