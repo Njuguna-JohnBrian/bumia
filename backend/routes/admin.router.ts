@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {
+  deleteUser,
   getAllUsers,
   getSingleUser,
   updateUser,
@@ -51,6 +52,19 @@ admin.patch(
   authorizeRoles(adminRole),
   (req: Request, res: Response, next: NextFunction) => {
     return updateUser(req, res, next);
+  }
+);
+
+/**
+ * Delete user
+ */
+
+admin.delete(
+  baseUrl + "user/delete/:id",
+  isAuthenticated,
+  authorizeRoles(adminRole),
+  (req: Request, res: Response, next: NextFunction) => {
+    return deleteUser(req, res, next);
   }
 );
 
