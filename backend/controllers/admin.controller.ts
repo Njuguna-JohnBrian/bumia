@@ -93,4 +93,27 @@ const updateUser = CatchAsyncErrors(
   }
 );
 
-export { getAllUsers, getSingleUser, updateUser };
+/**Delete user
+ *
+ * /admin/user/delete/:id
+ * @param {*} req request param with user `id`
+ * @param {*} res response body with success message
+ * @param {*} next next controller to take over execution
+ */
+const deleteUser = CatchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(
+        new ErrorHandler(`User by id ${req.params.id} not found`, 404)
+      );
+    }
+
+    return res.status(204).json({
+      success: true,
+    });
+  }
+);
+
+export { getAllUsers, getSingleUser, updateUser, deleteUser };
