@@ -26,4 +26,26 @@ const getAllUsers = CatchAsyncErrors(
   }
 );
 
-export { getAllUsers };
+/**Get single user
+ *
+ * /admin/user/:id
+ * @param {*} req request query param with user `id`
+ * @param {*} res response body with user details
+ * @param {*} next next controller to take over execution
+ */
+const getSingleUser = CatchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(
+        new ErrorHandler(`User with id ${req.params.id} not found`, 404)
+      );
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  }
+);
