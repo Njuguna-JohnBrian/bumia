@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import * as path from "path";
 dotenv.config({
-  path: path.join(__dirname, "../../backend/config/config.env"),
+  path: path.join(__dirname, "../../config/config.env"),
 });
 
 import { app } from "./app";

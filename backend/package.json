@@ -5,8 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "build": "npx tsc",
-    "start": "nodemon backend/server.ts",
-    "dev": "nodemon backend/server.ts",
+    "start": "nodemon server.ts",
+    "dev": "nodemon server.ts",
     "prod": "NODE_ENV=PRODUCTION nodemon  backend/server.ts",
     "lint": "eslint . --ext .ts",
     "seeder": "node backend/utils/seeder.utils.ts",
