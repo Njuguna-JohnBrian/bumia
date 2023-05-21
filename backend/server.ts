@@ -14,7 +14,9 @@ process.on(`${BumiaDefinitions.UNCAUGHT_EXCEPTION}`, (err: Error) => {
   process.exit(1);
 });
 
-connectDatabase();
+connectDatabase().then((response) => {
+  return response;
+});
 
 app.listen(process.env.PORT, () => {
   console.clear();
