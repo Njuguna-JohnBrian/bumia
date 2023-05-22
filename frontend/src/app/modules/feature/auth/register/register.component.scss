@@ -1,0 +1,19 @@
+.wrapper {
+  width: 40vw;
+}
+
+/* MEDIA QUERIES (MEDIUM DEVICES) */
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    width: 50vw;
+    height: 65vh;
+  }
+}
+
+// /* MEDIA QUERIES (SMALL DEVICES) */
+@media screen and (max-width: 600px) {
+  .wrapper {
+    width: 100vw;
+    height: 65vh;
+  }
+}

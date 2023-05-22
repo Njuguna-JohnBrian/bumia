@@ -1,4 +1,84 @@
-<div class="vh-100 vw-100 d-flex flex-row">
-  <div class="h-100 w-50 shopping-app"></div>
-  <div class="h-100 w-50" style="background-color: yellow"></div>
+<div class="vh-100 vw-100 container-fluid">
+  <div class="col d-flex justify-content-center align-items-center h-100">
+    <tui-island size="l" textAlign="center" class="shadow wrapper">
+      <img alt="" height="150em" src="./assets/images/logo.jpg" width="150em" />
+      <h4 class="font-monospace">BUMIA Registration</h4>
+      <form
+        [formGroup]="registrationForm"
+        (ngSubmit)="handleRegister()"
+        class="mt-lg-5 mx-5 row"
+      >
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <tui-input [tuiTextfieldCleaner]="true" formControlName="firstName">
+            First Name <span class="tui-required"></span>
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <tui-error
+            *ngIf="registrationForm.get('firstName')?.errors?.['required'] && registrationForm.get('firstName')?.touched"
+            error="First name is required"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <tui-input [tuiTextfieldCleaner]="true" formControlName="lastName">
+            Last Name <span class="tui-required"></span>
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <tui-error
+            *ngIf="registrationForm.get('lastName')?.errors?.['required'] && registrationForm.get('lastName')?.touched"
+            error="Last name is required"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 mt-5">
+          <tui-input [tuiTextfieldCleaner]="true" formControlName="email">
+            Email Address<span class="tui-required"></span>
+            <input tuiTextfield type="email" />
+          </tui-input>
+          <tui-error
+            *ngIf="registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.touched"
+            error="Email is required"
+            class="float-start"
+          ></tui-error>
+          <tui-error
+            *ngIf="registrationForm.get('email')?.errors?.['email']"
+            error="Please provide a valid email"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 mt-5">
+          <tui-input-password
+            [tuiTextfieldCleaner]="true"
+            formControlName="password"
+          >
+            Password <span class="tui-required"></span>
+            <input tuiTextfield type="password" />
+          </tui-input-password>
+
+          <tui-error
+            *ngIf="registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.touched"
+            error="Password is required"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <div class="tui-island_text-align_center">
+          <button
+            tuiButton
+            type="submit"
+            [disabled]="isLoading || registrationForm.invalid"
+            [showLoader]="isLoading"
+            size="l"
+            class="w-75 mt-5 mb-5"
+            iconRight="tuiIconChevronRight"
+          >
+            Create Account & Continue
+          </button>
+        </div>
+      </form>
+    </tui-island>
+  </div>
 </div>
