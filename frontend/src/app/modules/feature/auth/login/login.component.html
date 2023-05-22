@@ -1,0 +1,58 @@
+<div class="vh-100 vw-100 container-fluid">
+  <div class="col d-flex justify-content-center align-items-center h-100">
+    <tui-island size="l" textAlign="center" class="shadow wrapper">
+      <img alt="" height="150em" src="./assets/images/logo.jpg" width="150em" />
+      <h4 class="font-monospace">BUMIA Login</h4>
+      <form [formGroup]="loginForm" class="mt-lg-5 mx-5 col">
+        <div class="col-sm-12 mb-5">
+          <tui-input [tuiTextfieldCleaner]="true" formControlName="email">
+            Email Address<span class="tui-required"></span>
+            <input tuiTextfield type="email" />
+          </tui-input>
+          <tui-error
+            *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
+            error="Email is required"
+            class="float-start"
+          ></tui-error>
+          <tui-error
+            *ngIf="loginForm.get('email')?.errors?.['email']"
+            error="Please provide a valid email"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <div class="col-sm-12">
+          <tui-input-password
+            [tuiTextfieldCleaner]="true"
+            formControlName="password"
+          >
+            Password <span class="tui-required"></span>
+            <input tuiTextfield type="password" />
+          </tui-input-password>
+
+          <tui-error
+            *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+            error="Password is required"
+            class="float-start"
+          ></tui-error>
+        </div>
+
+        <p class="float-end mt-3"><a routerLink="/register">Forgot Password?</a></p>
+
+        <div class="tui-island_text-align_center">
+          <button
+            tuiButton
+            type="submit"
+            [disabled]="isLoading || loginForm.invalid"
+            [showLoader]="isLoading"
+            size="l"
+            class="col-12 mt-2 mb-5"
+            iconRight="tuiIconChevronRight"
+          >
+            Log In
+          </button>
+        </div>
+      </form>
+    </tui-island>
+  </div>
+</div>
