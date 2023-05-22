@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e5e1d6;
+}
+.shopping-app {
+  background-image: url("./assets/svgs/shopping_app.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
