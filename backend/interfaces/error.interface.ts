@@ -9,8 +9,8 @@ export class IError extends Error {
 }
 
 export enum BumiaDefinitions {
-  PRODUCTION = "PRODUCTION",
-  DEVELOPMENT = "DEVELOPMENT",
+  PRODUCTION = "prod",
+  DEVELOPMENT = "dev",
   CAST_ERROR = "CastError",
   VALIDATION_ERROR = "ValidationError",
   INTERNAL_ERROR = "Internal server error",

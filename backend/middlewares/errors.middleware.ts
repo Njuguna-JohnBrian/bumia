@@ -11,7 +11,7 @@ const errorMiddleware = (
 ) => {
   err.statusCode = err.statusCode || 500;
 
-  if (process.env.NODE_ENV === BumiaDefinitions.DEVELOPMENT) {
+  if (process.env.NODE_ENV.includes("dev")) {
     return res.status(err.statusCode).json({
       success: false,
       error: err,
@@ -20,7 +20,7 @@ const errorMiddleware = (
     });
   }
 
-  if (process.env.NODE_ENV === BumiaDefinitions.PRODUCTION) {
+  if (process.env.NODE_ENV.includes("prod")) {
     let error = { ...err };
 
     error.message = err.message;
