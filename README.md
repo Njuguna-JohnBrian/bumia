@@ -15,7 +15,7 @@ Install Bumia with ```npm```
 Then paste the following into the just created file i.e  ```config.env```
 
 ```env
-PORT=5050
+PORT=2345
 NODE_ENV=dev
 DB_LOCAL_URI=mongodb://127.0.0.1:27017/bumia
 JWT_SECRET=YouCannotHackMe!123JWT
@@ -31,16 +31,22 @@ SMTP_USER=88f246835166cd
 
 ## DATABASE SETUP
 
-1. [✔️] Get The MongoDB Community Version and Install
+ [✔️] Get The MongoDB Community Version and Install
 
  - While downloading ensure you select the ```Complete``` installation
  - Do not uncheck the ```Install MongoDb Compass``` checkbox as MongoDb Compass will be    the database client to be used
+
+[✔️] Once the Installation MongoDb Compass will automatically get initalized
+
 
 
 ## RUN THE PROJECT
 
 ```bash
   cd backend
-  npm run start
+  npm run prod
 ```
+
+## DATABASE SETUP CONFIRMATION
+[✔️] Go back to the open instance of MongoDb Compass and confirm the existence of a database by the name __bumia__
 
