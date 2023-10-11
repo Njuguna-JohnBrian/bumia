@@ -1,9 +1,10 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import * as path from "path";
 
-import { data } from "../data/products.data";
+import { testProducts, adminUser } from "../data/products.data";
 import { connectDatabase } from "../config/database";
 import { Product } from "../models/product.model";
+import { User } from "../models/users.model";
 
 dotenv.config({
   path: path.join(__dirname, "../../../backend/config/config.env"),
@@ -17,7 +18,7 @@ const seedProducts = async (): Promise<void> => {
 
     console.log("All products deleted from database...");
 
-    await Product.insertMany(data);
+    await Product.insertMany(testProducts);
 
     console.log("All products added to database...");
 
@@ -29,4 +30,23 @@ const seedProducts = async (): Promise<void> => {
   }
 };
 
+const seedAdminUser = async (): Promise<void> => {
+  try {
+    await User.deleteMany();
+
+    console.log("All users deleted from database...");
+
+    await User.insertMany(adminUser);
+
+    console.log("All users added to database...");
+
+    process.exit();
+  } catch (error) {
+    console.log(error.message);
+
+    process.exit();
+  }
+};
+
+seedAdminUser();
 seedProducts();
