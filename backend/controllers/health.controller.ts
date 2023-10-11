@@ -1,7 +1,6 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request } from "express";
 
 import { CatchAsyncErrors } from "../middlewares/catchAsyncErrors.middleware";
-import { ErrorHandler } from "../utils/errorHandler.utils.";
 import {
   BumiaDefinitions,
   ControllerMessages,
@@ -16,9 +15,12 @@ import {
  * @param {*} next next controller to take over execution
  */
 const checkHealth = CatchAsyncErrors(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     if (res.errored) {
-      return next(new ErrorHandler(BumiaDefinitions.INTERNAL_ERROR, 500));
+      return res.status(500).json({
+        success: false,
+        message: BumiaDefinitions.INTERNAL_ERROR,
+      });
     }
     return res.status(200).json({
       success: true,
