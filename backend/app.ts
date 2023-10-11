@@ -7,6 +7,7 @@ import { auth } from "./routes/auth.router";
 import { admin } from "./routes/admin.router";
 import errorMiddleware from "./middlewares/errors.middleware";
 import swaggerDefinition from "./swagger.json";
+import { seed } from "./routes/seed.router";
 
 const app: Express = express();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 const baseUrl = "/bumia/v1";
 
 app.use(baseUrl, health);
+
+app.use(baseUrl, seed);
 
 app.use(baseUrl, product);
 
