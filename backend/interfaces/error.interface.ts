@@ -23,6 +23,7 @@ export enum BumiaDefinitions {
 
 export enum ControllerMessages {
   HEALTH_MESSAGE = "System is operational and healthy",
+  SEED_MESSAGE = "Seed was done successfully",
   PRODUCT_NOT_FOUND = "Product by id:",
   PRODUCT_CREATE_FAIL = "Failed to create product. Please retry",
 }
