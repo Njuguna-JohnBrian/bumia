@@ -5,15 +5,18 @@
       "description": "Bumia App",
       "version": "1.0.0"
     },
+    
     "servers": [
       {
         "url": "http://localhost:2345/bumia/v1"
       }
     ],
+    
     "paths": {
       "/health": {
         "get": {
           "summary": "Check bumia Api health",
+          "description": "Checks whether the  bumia api is accessible",
           "responses": {
             "200": {
               "description": "OK",
