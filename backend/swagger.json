@@ -1,0 +1,80 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Bumia App",
+      "description": "Bumia App",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:2345/bumia/v1"
+      }
+    ],
+    "paths": {
+      "/health": {
+        "get": {
+          "summary": "Check bumia Api health",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json":{
+                  "schema": {
+                "$ref": "#/components/schemas/HealthSuccessResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error",
+              "content": {
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "cookieAuth": {
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "token" 
+        }
+      },
+      "schemas": {
+        "HealthSuccessResponse": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "example": true
+            },
+            "message": {
+              "type": "string",
+              "example": "System is operational and healthy"
+            }
+          }
+        },
+        "HealthErrorResponse": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "example": false
+            },
+            "message": {
+              "type": "string",
+              "example": "Internal server error"
+            }
+          }
+        }
+      }
+    }
+  }
+  
