@@ -1,4 +1,4 @@
-const data = [
+const testProducts = [
   {
     name: "ScanDisk Ultra",
     price: "45.08",
@@ -91,4 +91,17 @@ const data = [
   },
 ];
 
-export { data };
+const adminUser = [
+  {
+    name: "Admin Uset",
+    email: "adminuser@bumia.com",
+    password: "testadmin@123",
+    role:"admin",
+    avatar: {
+      public_id: "avatars/profile_zlo2el",
+      url: "https://res.cloudinary.com/duaeqqpu7/image/upload/v1674368734/avatars/profile_zlo2el.jpg",
+    },
+  },
+];
+
+export { testProducts,adminUser  };
