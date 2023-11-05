@@ -1,20 +1,66 @@
 
-## API SETUP
+# Bumia E-commerce Backend Application
 
-Install Bumia with ```npm```
+## Project Description
 
-```bash
-  cd backend
-  npm i
-```
+Bumia Shop is an e-commerce backend application that allows administrators to manage products, users to purchase products, and provide reviews. It also integrates Stripe for payment processing.
 
-```bash
-  cd backend/config
-  touch config.env
-```
-Then paste the following into the just created file i.e  ```config.env```
+## Project Structure
 
-```env
+- **server.ts**: Main entry point for the application.
+- **src/**
+  - **controllers/**: Contains controllers for different application features (e.g., product, user, review).
+    - **Auth.controller.ts**
+    - **Product.controller.ts**
+  - **models/**: Defines Mongoose schemas for MongoDB data.
+    - **User.ts**
+  - **routes/**: Contains Express route definitions.
+    - **auth.router.ts**
+    - **product.router.ts**
+  - **middleware/**: Middleware functions (e.g., authentication, validation).
+    - **ErrorHandler.ts**
+  - **config/**: Configuration files (e.g., Stripe API keys, database connection).
+  - **utils/**: Utility functions (e.g., seeder for database population).
+    - **RequestFunction.ts**
+    - **Response.ts**
+    - **forgotPassword.ts**
+    - **login.ts**
+    - **register.ts**
+    - **resetPassword.ts**
+    - **sendEmail.ts**
+    - **updateProfile.ts**
+    - **verifyEmail.ts**
+  - **typings/**: Custom TypeScript type definitions.
+  - **index.ts**: Initializes the Express app, sets up routes, and starts the server.
+
+## Admin Features
+
+- Admins can:
+  - Add products.
+  - Delete products.
+  - Edit product details.
+
+## User Features
+
+- Users can:
+  - Browse and search for products.
+  - Add products to the cart.
+  - Proceed to checkout and make payments using Stripe.
+  - Leave reviews and ratings for products.
+
+## Technologies Used
+
+- Node.js and Express for the server.
+- TypeScript for type-safe code.
+- MongoDB as the database.
+- Stripe for payment processing.
+
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/Njuguna-JohnBrian/bumia.git`
+2. Install dependencies: `npm install`
+3. Set up environment variables (e.g., Stripe API keys) in a `.env` file.
+```dotenv
 PORT=2345
 NODE_ENV=dev
 DB_LOCAL_URI=mongodb://127.0.0.1:27017/bumia
@@ -29,24 +75,19 @@ SMTP_FROM_NAME=Bumia
 SMTP_USER=88f246835166cd
 ```
 
-## DATABASE SETUP
+## API Documentation
 
- [✔️] Get The MongoDB Community Version and Install
+- Swagger API documentation is available at [http://localhost:2345/bumia/v1/swagger/](http://localhost:2345/bumia/v1/swagger/).
 
- - While downloading ensure you select the ```Complete``` installation
- - Do not uncheck the ```Install MongoDb Compass``` checkbox as MongoDb Compass will be    the database client to be used
+## License
 
-[✔️] Once the Installation MongoDb Compass will automatically get initalized
+This project is licensed under the ISC License.
 
+## Report Issues
 
+If you encounter any issues, please report them on the [GitHub issues page](https://github.com/Njuguna-JohnBrian/bumia/issues).
 
-## RUN THE PROJECT
+## Author
 
-```bash
-  cd backend
-  npm run prod
-```
-
-## DATABASE SETUP CONFIRMATION
-[✔️] Go back to the open instance of MongoDb Compass and confirm the existence of a database by the name __bumia__
+- John Brian
 
